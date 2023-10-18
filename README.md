@@ -1,4 +1,4 @@
-# This repo can convert any Folder into a pdf, then vectorise and run semantic searches against it, it has a flask web UI
+# This repo is a semantic search flask repo, currently still need to use the other Repo-To-PDF-SemanticSearch for the pdf conversion and vectorising.
 
 1: Clone repo
 
