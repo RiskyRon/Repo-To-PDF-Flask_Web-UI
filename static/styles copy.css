@@ -1,0 +1,94 @@
+/* filename: static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 75%;
+    height: 70vh; /* Adjust this value based on your preference */
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 20px;
+    justify-content: space-between;
+    display: flex; /* Add flex display */
+    flex-direction: column; /* Stack children vertically */
+}
+
+#chatbox {
+    margin-inline: ;
+    flex: grow; /* Take up all available space */
+    overflow-y: auto;
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px; /* Space between chatbox and chat form */
+    min-height: 10%;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.message strong {
+    color: #ffa500;  /* this will give "You:" and "Chatbot:" an orange color for differentiation */
+}
+
+#chat-form {
+    margin-inline: ;
+    display: flex; /* Align form elements horizontally */
+    justify-content: space-between;
+}
+
+#chat-form .form-group {
+    margin-bottom: 10px;
+    
+}
+
+#message {
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; /* subtle inner shadow */
+}
+
+#message::placeholder {
+    color: #7a7a7a;  /* lighter color for the placeholder text */
+}
+
+#message:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* subtle focus glow */
+}
+
+.btn-send {
+    background-color: #2a2a2a;
+    border: none;
+    margin-left: 10px;
+    color: #ffa500; /* color of the arrow */
+    border-radius: 50%; /* make the button round */
+    width: 40px; /* fixed width and height for a circle */
+    height: 40px;
+    display: flex;
+    align-items: center; /* vertically center the SVG arrow */
+    justify-content: center; /* horizontally center the SVG arrow */
+    transition: background-color 0.3s; /* smooth transition for hover effect */
+}
+
+.btn-send:hover {
+    background-color: rgba(255, 165, 0, 0.1); /* Light orange background on hover */
+}
+
+
+
