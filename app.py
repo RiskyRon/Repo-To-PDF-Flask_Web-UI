@@ -1,13 +1,16 @@
+#app.py
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
 from pdf_scripts import semantic_search
+from pdf_scripts import vectorise
+from weaviate_init import client
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 # Configuration for file uploads
 UPLOAD_FOLDER = 'dropzone'
-ALLOWED_EXTENSIONS = {'pdf', 'docx', 'txt'}
+ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Function to check if the uploaded file is allowed
@@ -26,15 +29,17 @@ def chat():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return jsonify(error="No file part")
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify(error="No selected file")
-    if file and allowed_file(file.filename):
+    file = request.files.get('file', None)
+    
+    if not file or file.filename == '':
+        return jsonify(error="No selected file or no file part")
+    
+    if allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify(success=True, message="File uploaded successfully")
+        vectorise.vectorize_and_delete_pdfs_from_folder()
+        return jsonify(success=True, message="File uploaded and vectorized successfully")
+    
     return jsonify(error="File type not allowed")
 
 if __name__ == "__main__":
