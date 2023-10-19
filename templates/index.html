@@ -17,11 +17,10 @@
 <body>
     <!-- Begin Sidebar -->
     <div class="sidebar">
-        <h4>Repo to PDF</h4>
         <div class="upload-section">
-            <div id="myDropzone" class="drag-and-drop">Drag and drop or click to upload files</div>
-            <button class="btn-sidebar">
-                Upload
+            <div id="myDropzone" class="drag-and-drop dropzone"></div>
+            <input type="file" id="fileInput" style="display:none;">
+            <label for="fileInput" class="btn-sidebar">Upload</label>
             </button>
             <button class="btn-sidebar">
                 SELECT OPERATION
@@ -67,6 +66,31 @@
                 });
             }
         };
+        Dropzone.autoDiscover = false;
+            var myDrop = new Dropzone("#myDropzone", {
+                url: '/upload',
+                paramName: "file",
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                acceptedFiles: ".pdf,.docx,.txt",
+                init: function() {
+                    var dz = this;  // Reference to the Dropzone instance
+
+                    // Listen to the change event on the file input
+                    document.getElementById("fileInput").addEventListener("change", function() {
+                        // Check if files were selected
+                        if (this.files.length) {
+                            var file = this.files[0];
+                            dz.addFile(file);
+                        }
+                    });
+
+                    this.on("success", function(file, response) {
+                        console.log(response);
+                    });
+                }
+            });
+
     
         $(document).ready(function() {
             $('#chat-form').on('submit', function(e) {

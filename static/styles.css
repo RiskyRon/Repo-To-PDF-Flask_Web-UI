@@ -31,11 +31,13 @@ body {
 }
 
 .drag-and-drop, .select-operation, .select-docs {
+    color: #ffa500;
     background-color: #2a2a2a;
     border: 2px dashed #7a7a7a;
     padding: 20px;
     text-align: center;
     border-radius: 5px;
+    border-color: #ffa500;
 }
 
 .btn-sidebar {
