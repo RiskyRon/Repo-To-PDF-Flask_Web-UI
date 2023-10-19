@@ -1,13 +1,14 @@
 #vectorise.py
 import os
 import weaviate
-from weaviate_init import client
+import pdfplumber
 from weaviate import Config
 import weaviate.classes as wvc
-import pdfplumber
+from weaviate_init import client
+
 from pathlib import Path
 
-UPLOAD_FOLDER = "dropzone"  # Define this with your actual folder path
+UPLOAD_FOLDER = "dropzone"  
 
 def vectorize_and_delete_pdfs_from_folder():
     # Check if Weaviate is ready
