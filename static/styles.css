@@ -29,20 +29,36 @@
 }
 
 .sidebar-toggle-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: var(--btn-bg-color);
-    color: var(--highlight-color);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1000;
-    border-radius: 5px;
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    background-color: var(--btn-bg-color) !important;
+    color: var(--highlight-color) !important;
+    border: none !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    z-index: 1000 !important;
+    border-radius: 15% !important;
+    height: 35px !important;
+    width: 35px !important;
+    margin-left: 1% !important;
+    transition: background-color 0.3s !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.sidebar-toggle-btn:hover {
+    border-color: var(--highlight-color) !important;
+    color: var(--highlight-color) !important;
 }
 
 
-
+.sidebar-.sidebar-toggle-btn:focus {
+    border-radius: 5px  !important;
+    outline-color: #ffa500 !important;
+    box-shadow: 0px 0px 2px var(--input-focus-shadow) inset !important;
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -58,7 +74,7 @@ body {
 .sidebar {
     width: 25%;
     height: 90vh;
-    margin-top: 5%;
+    margin-top: 7%;
     margin-left: 2%;
     border-radius: 10px;
     background-color: var(--sidebar-bg-color);
@@ -99,6 +115,7 @@ body {
     box-shadow: 0px 0px 3px var(--btn-hover-shadow);
 }
 
+
 .container {
     width: 70%;
     height: 90vh;
@@ -108,7 +125,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 5%;
+    margin-top: 7%;
 }
 
 #chatbox {
