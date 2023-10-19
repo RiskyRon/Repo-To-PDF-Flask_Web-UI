@@ -7,6 +7,7 @@ from weaviate_init import client
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+print(f'############GPT-3.5-turbo in use for development.##################')
 
 # Configuration for file uploads
 UPLOAD_FOLDER = 'dropzone'
