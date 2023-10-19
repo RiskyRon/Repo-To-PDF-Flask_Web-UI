@@ -8,30 +8,77 @@ body {
     padding: 0;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+.sidebar {
+    width: 25%; /* Set the width of the sidebar */
+    height: 90vh;
+    margin-top: 5%;
+    margin-left: 2%;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    padding: 5% 3%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.drag-and-drop, .select-operation, .select-docs {
+    background-color: #2a2a2a;
+    border: 2px dashed #7a7a7a;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.btn-upload {
+    background-color: #2a2a2a;
+    color: #ffa500;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-upload:hover {
+    background-color: rgba(255, 165, 0, 0.1);
 }
 
 .container {
-    max-width: 75%;
-    height: 70vh; /* Adjust this value based on your preference */
+    width: 70%; /* Adjust this value based on your preference */
+    height: 90vh;
     background-color: #1a1a1a;
     border-radius: 10px;
-    padding: 20px;
-    justify-content: space-between;
-    display: flex; /* Add flex display */
-    flex-direction: column; /* Stack children vertically */
+    padding: ;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
 }
 
 #chatbox {
-    margin-inline: ;
-    flex: grow; /* Take up all available space */
+    width: 100%;
+    padding: ;
+    flex-grow: 1; /* Take up all available space */
     overflow-y: auto;
-    background-color: #2a2a2a;
+    background-color: #1a1a1a;
     border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px; /* Space between chatbox and chat form */
-    min-height: 10%;
+    margin-bottom: 10px;
+}
+
+#chat-form {
+    display: flex;
+    width: 95%;
+    gap: 10px;
+    margin-bottom: 5%;
 }
 
 .message {
@@ -41,54 +88,79 @@ body {
 }
 
 .message strong {
-    color: #ffa500;  /* this will give "You:" and "Chatbot:" an orange color for differentiation */
+    color: #ffa500;
 }
 
-#chat-form {
-    margin-inline: ;
-    display: flex; /* Align form elements horizontally */
-    justify-content: space-between;
-}
 
-#chat-form .form-group {
-    margin-bottom: 10px;
-    
-}
 
 #message {
+    flex-grow: 1; /* Allow the input to take up available space */
     background-color: #2a2a2a;
     border: none;
     border-radius: 5px;
     color: #FFFFFF;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; /* subtle inner shadow */
+    /*box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 #message::placeholder {
-    color: #7a7a7a;  /* lighter color for the placeholder text */
+    color: #7a7a7a;
 }
 
 #message:focus {
     outline: none;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* subtle focus glow */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
 .btn-send {
     background-color: #2a2a2a;
     border: none;
-    margin-left: 10px;
-    color: #ffa500; /* color of the arrow */
-    border-radius: 50%; /* make the button round */
-    width: 40px; /* fixed width and height for a circle */
+    color: #ffa500;
+    border-radius: 15%;
+    width: 40px;
     height: 40px;
     display: flex;
-    align-items: center; /* vertically center the SVG arrow */
-    justify-content: center; /* horizontally center the SVG arrow */
-    transition: background-color 0.3s; /* smooth transition for hover effect */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
 }
 
 .btn-send:hover {
-    background-color: rgba(255, 165, 0, 0.1); /* Light orange background on hover */
+    background-color: rgba(255, 165, 0, 0.1);
 }
 
+.user-message {
+    background-color: #333;
+}
+
+.bot-message {
+    background-color: #222;
+}
+
+.timestamp {
+    font-size: 0.7em;
+    color: #7a7a7a;
+}
+
+.user-message strong {
+    color: #00aaff;
+}
+
+#chatbox::-webkit-scrollbar {
+    width: 8px; /* Width of the vertical scrollbar */
+    height: 8px; /* Height of the horizontal scrollbar */
+}
+
+#chatbox::-webkit-scrollbar-track {
+    background-color: #1a1a1a;; /* Color of the track */
+}
+
+#chatbox::-webkit-scrollbar-thumb {
+    background-color: #4d4d4d;; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Makes the scrollbar thumb rounded */
+}
+
+#chatbox::-webkit-scrollbar-thumb:hover {
+    background-color: #605b5b; /* Color of the scrollbar thumb on hover */
+}
 
 

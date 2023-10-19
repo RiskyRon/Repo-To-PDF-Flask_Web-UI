@@ -35,6 +35,9 @@ def get_page_limit():
     return int(limit) if limit else 1
 
 import re
+import time
+
+start_time = time.time()
 
 def generate_response(user_query, title, page_number, content):
     openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -45,10 +48,11 @@ def generate_response(user_query, title, page_number, content):
             messages=[
                 {
                     "role": "system",
-                    "content": (
-                        "You are tasked with providing a clear, concise, and informative response to a user's query based on the information extracted from a semantic search of a PDF document. "
-                        "The user's query and the relevant text extracted from the semantic search will be provided. Your response should first address the user's query directly in a natural language format, summarizing the key points from the provided text. Where possible you should provide step by step instructions for the user to follow to complete their task. Next, you should include the actual text from the semantic search as a reference. "
+                    "content": ("""
+                        You are tasked with providing a clear, concise, and informative response to a user's query based on the information extracted from a semantic search of a PDF document. ALWAYS use `````` to wrap code snippets.
+                        The user's query and the relevant text extracted from the semantic search will be provided. Your response should first address the user's query directly in a natural language format, summarizing the key points from the provided text. Where possible you should provide step by step instructions for the user to follow to complete their task. Next, you should include the actual text from the semantic search as a reference.
                         f"\n\nUser Query: {user_query}\n\nSemantic Search Output:\nTitle: {title}\nPage Number: {page_number}\nContent: {content}\n\nPlease formulate your response accordingly.\n\n"
+                        """
                     )
                 },
                 {
@@ -78,7 +82,7 @@ def generate_response(user_query, title, page_number, content):
         formatted_response = re.sub(r'```(.*?)```', replace_code, raw_response, flags=re.DOTALL)
 
         return formatted_response
-
+        print("--- %s seconds ---" % (time.time() - start_time))
     except Exception as e:
         print(f"An error occurred: {e}")
         return None  # or however you want to handle errors
@@ -113,6 +117,7 @@ def perform_search(client, class_name, query, limit):
             response_texts.append(f'Failed to generate response for {title} (Page {page_number})')
         
     return " ".join(response_texts)
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 
 def get_response(user_query):
@@ -131,7 +136,7 @@ def get_response(user_query):
     limit = 1  # Default limit
 
     return perform_search(client, class_name, user_query, limit)
-
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 if __name__ == "__main__":
     # This code will not be executed when imported by Flask

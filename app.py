@@ -4,6 +4,8 @@ from pdf_scripts import semantic_search
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def index():
     return render_template('index.html')

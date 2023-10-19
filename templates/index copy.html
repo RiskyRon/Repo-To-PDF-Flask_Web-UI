@@ -6,10 +6,15 @@
     <title>Chatbot</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
 </head>
 <body>
     <div class="container">
-        <div id="chatbox" class="mt-3">
+        <div id="chatbox" class="mt-3 p-3 rounded overflow-auto">
             <!-- Chat messages will be added here -->
         </div>
         <form id="chat-form" class="mt-3 d-flex">
@@ -30,11 +35,16 @@
             $('#chat-form').on('submit', function(e) {
                 e.preventDefault();
                 var message = $('#message').val();
+                var timeStamp = new Date().toLocaleTimeString();
                 $.post('/chat', {message: message}, function(data) {
-                    $('#chatbox').append('<div class="message"><strong>You:</strong> ' + message + '</div>');
-                    $('#chatbox').append('<div class="message"><strong>Chatbot:</strong> ' + data.response + '</div>');
+                    $('#chatbox').append('<div class="message user-message p-2 mb-2 rounded"><strong>You:</strong> ' + message + '<span class="timestamp float-right">' + timeStamp + '</span></div>');
+                    $('#chatbox').append('<div class="message bot-message p-2 mb-2 rounded"><strong>Chatbot:</strong> ' + data.response + '<span class="timestamp float-right">' + timeStamp + '</span></div>');
                     $('#message').val('');
                     $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
+                    // Highlight any code blocks
+                    $('pre code').each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
                 });
             });
         });
