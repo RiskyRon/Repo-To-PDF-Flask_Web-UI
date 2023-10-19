@@ -22,6 +22,28 @@
     --scrollbar-thumb-hover-color: #605b5b;
 }
 
+/* Additional CSS for sidebar sliding */
+.sidebar-closed {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--btn-bg-color);
+    color: var(--highlight-color);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: var(--background-color);
@@ -30,6 +52,7 @@ body {
     padding: 0;
     height: 100vh;
     display: flex;
+    
 }
 
 .sidebar {

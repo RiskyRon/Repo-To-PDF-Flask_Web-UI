@@ -1,7 +1,7 @@
 
 # This script lists and optionally deletes all classes and data objects in Weaviate, cleaning up any unwanted vectored pdfs.
 
-import my_weaviate
+import weaviate
 
 def list_and_optionally_delete_classes(client):
     # Get the list of all classes in Weaviate
@@ -33,6 +33,6 @@ def list_and_optionally_delete_classes(client):
 
 if __name__ == "__main__":
     # Connect to the Weaviate instance
-    client = my_weaviate.Client("http://localhost:8080")
+    client = weaviate.Client("http://localhost:8080")
     
     list_and_optionally_delete_classes(client)
