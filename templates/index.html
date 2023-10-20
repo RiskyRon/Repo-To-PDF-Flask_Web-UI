@@ -75,7 +75,16 @@
             var sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('sidebar-closed');
         });
-    
+        function refreshPdfSelection() {
+            $.get('/get-classes', function(data) {
+                var classDropdown = $('#doc-select');
+                classDropdown.empty();
+                classDropdown.append('<option value="" selected>Select PDF</option>');
+                data.class_list.forEach(function(item, index) {
+                    classDropdown.append('<option value="' + (index + 1) + '">' + item + '</option>');
+                });
+            });
+        }
         // Initialize Dropzone
         Dropzone.options.myDropzone = {
             url: '/upload',
@@ -85,7 +94,9 @@
             acceptedFiles: ".pdf", // Add your required file formats here
             init: function() {
                 this.on("success", function(file, response) {
-                    console.log(response); // Handle the response from server after upload
+                    console.log(response);  // Handle the response from server after upload
+                    refreshPdfSelection();  // Refresh the PDF selection dropdown
+                    this.removeAllFiles();
                 });
             }
         };
@@ -100,6 +111,8 @@
             init: function() {
                 this.on("success", function(file, response) {
                     console.log(response);
+                    refreshPdfSelection();  // Refresh the PDF selection dropdown
+                    this.removeAllFiles();
                 });
             }
         });
