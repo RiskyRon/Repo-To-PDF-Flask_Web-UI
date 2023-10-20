@@ -85,6 +85,32 @@ body {
     gap: 20px;
 }
 
+/* Normal State */
+#delete-btn {
+    background-color: #2a2a2a; /* Red */
+    border-color: #ffa500;
+    color: #ffa500; /* White */
+    padding: 10px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px; /* Optional: for rounded corners */
+}
+
+/* Hover State */
+#delete-btn:hover {
+    background-color: #c82333; /* Darker Red */
+}
+
+/* Focus State */
+#delete-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5); /* Red box-shadow */
+}
+
 .upload-section {
     display: flex;
     flex-direction: column;
@@ -236,7 +262,7 @@ label {
     color:#ffa500;
     border-color: #ffa500;
     font-size: 0.9rem;
-    padding: 2px 10px;
+    padding: 10px 10px;
     border-radius: 5px;
   }
 
