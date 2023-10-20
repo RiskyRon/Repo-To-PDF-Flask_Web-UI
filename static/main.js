@@ -2,16 +2,7 @@ document.getElementById('sidebarToggle').addEventListener('click', function() {
     var sidebar = document.querySelector('.sidebar');
     sidebar.classList.toggle('sidebar-closed');
 });
-function refreshPdfSelection() {
-    $.get('/get-classes', function(data) {
-        var classDropdown = $('#doc-select');
-        classDropdown.empty();
-        classDropdown.append('<option value="" selected>Select PDF</option>');
-        data.class_list.forEach(function(item, index) {
-            classDropdown.append('<option value="' + (index + 1) + '">' + item + '</option>');
-        });
-    });
-}
+
 // Initialize Dropzone
 Dropzone.options.myDropzone = {
     url: '/upload',
@@ -43,9 +34,22 @@ var myDrop = new Dropzone("#myDropzone", {
         });
     }
 });
+function refreshPdfSelection() {
+    $.get('/get-classes', function(data) {
+        console.log('Received classes from server:', data); 
+        var classDropdown = $('#doc-select');
+        classDropdown.empty();
+        classDropdown.append('<option value="" selected>Select PDF</option>');
+        data.class_list.forEach(function(item, index) {
+            classDropdown.append('<option value="' + (index + 1) + '">' + item + '</option>');
+        });
+        console.log('Dropdown refreshed');  // Add a console log statement for debugging
+    });
+}
 
 $(document).ready(function() {
     // Populate the class choices dropdown
+    refreshPdfSelection();
     $.get('/get-classes', function(data) {
         var classDropdown = $('#doc-select');
         classDropdown.empty();
@@ -54,7 +58,25 @@ $(document).ready(function() {
             classDropdown.append('<option value="' + (index + 1) + '">' + item + '</option>');
         });
     });
+    // Handle the delete button click
+    $('#delete-btn').on('click', function() {
+        var selectedClass = $('#doc-select option:selected').text();
+        if (selectedClass && selectedClass !== "Select PDF") {
+            // Remove any prefix from the selectedClass string
+            selectedClass = selectedClass.split(' ').slice(1).join(' ');
+            $.post('/delete-class', {class_name: selectedClass}, function(response) {
+                if (response.success) {
+                    refreshPdfSelection();  // Refresh the PDF selection dropdown
+                } else {
+                    console.error('Failed to delete class:', response.error);
+                }
+            });
+        } else {
+            alert('Please select a PDF to delete.');
+        }
+    });
 
+    
     $('#chat-form').on('submit', function(e) {
         e.preventDefault();
         var message = $('#message').val();

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
 from modules.searchPDF import PDFSearch
 from modules import vectorise
-from modules.weaviate_init import client
+from modules.weaviate_init import weaviate_client
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -13,12 +13,26 @@ print(f'############GPT-3.5-turbo in use for development.##################')
 UPLOAD_FOLDER = 'dropzone'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-pdf_search = PDFSearch(client)
+pdf_search = PDFSearch(weaviate_client)
 
 
 # Function to check if the uploaded file is allowed
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_client():
+    # Replace with your Weaviate instance details
+    return weaviate_client()
+
+def delete_class_from_weaviate(class_name):
+    try:
+        weaviate_client.schema.delete_class(class_name)
+        print(f"Class {class_name} deleted successfully.")  # Add logging
+        return True
+    except Exception as e:
+        print(f"Failed to delete class '{class_name}': {e}")
+        return False
+
 
 @app.route('/')
 def index():
@@ -56,6 +70,16 @@ def upload_file():
         return jsonify(success=True, message="File uploaded and vectorized successfully")
     
     return jsonify(error="File type not allowed")
+
+@app.route('/delete-class', methods=['POST'])
+def delete_class():
+    class_name = request.form.get('class_name')
+    if not class_name:
+        return jsonify(success=False, error='No class name provided.')
+    
+    success = delete_class_from_weaviate(class_name)
+    print(f'Deletion of {class_name} successful: {success}')
+    return jsonify(success=success)
 
 if __name__ == "__main__":
     app.run(debug=True)

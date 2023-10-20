@@ -1,14 +1,14 @@
 # PDFsearch.py
 import os
 import openai
-from modules.weaviate_init import client  # Importing the initialized client from weaviate_init.py
+from modules.weaviate_init import weaviate_client  # Importing the initialized weaviate_client from weaviate_init.py
 
 class PDFSearch:
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, weaviate_client):
+        self.weaviate_client = weaviate_client
 
     def list_classes(self):
-        schema = self.client.schema.get()
+        schema = self.weaviate_client.schema.get()
         classes = schema['classes']
         class_list = []
         if not classes:
@@ -18,12 +18,12 @@ class PDFSearch:
         return class_list
 
     def get_class_choice(self, choice):
-        schema = self.client.schema.get()
+        schema = self.weaviate_client.schema.get()
         class_name = schema['classes'][int(choice)-1]['class']
         return class_name
 
     def perform_search(self, class_name, query, limit):
-        pdf_document_pages = self.client.collection.get(class_name)
+        pdf_document_pages = self.weaviate_client.collection.get(class_name)
         semantic_search_result = pdf_document_pages.query.near_text(query=query, limit=limit)
         search_results = []
         for page in semantic_search_result.objects:

@@ -4,7 +4,7 @@ import weaviate
 import pdfplumber
 from weaviate import Config
 import weaviate.classes as wvc
-from modules.weaviate_init import client
+from modules.weaviate_init import weaviate_client
 
 from pathlib import Path
 
@@ -12,7 +12,7 @@ UPLOAD_FOLDER = "dropzone"
 
 def vectorize_and_delete_pdfs_from_folder():
     # Check if Weaviate is ready
-    if not client.is_ready():
+    if not weaviate_client.is_ready():
         raise Exception("Weaviate is not ready!")
 
     # List all PDFs in the UPLOAD_FOLDER
@@ -30,7 +30,7 @@ def vectorize_and_delete_pdfs_from_folder():
         class_name = Path(pdf_path).stem.lower()
 
         # Create a class in Weaviate for the PDF
-        articles = client.collection.create(
+        articles = weaviate_client.collection.create(
             name=class_name,
             properties=[
                 wvc.Property(
@@ -50,7 +50,7 @@ def vectorize_and_delete_pdfs_from_folder():
         )
 
         # Get the created class from Weaviate
-        pdf_document_pages = client.collection.get(class_name)
+        pdf_document_pages = weaviate_client.collection.get(class_name)
 
         # Open the specified PDF file
         with pdfplumber.open(pdf_path) as pdf:

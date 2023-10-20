@@ -16,4 +16,4 @@ def initialize_weaviate_client():
     )
     return client
 
-client = initialize_weaviate_client()
+weaviate_client = initialize_weaviate_client()
