@@ -1,7 +1,7 @@
 # PDFsearch.py
 import os
 import openai
-from weaviate_init import client  # Importing the initialized client from weaviate_init.py
+from modules.weaviate_init import client  # Importing the initialized client from weaviate_init.py
 
 class PDFSearch:
     def __init__(self, client):

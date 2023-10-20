@@ -4,7 +4,7 @@ import weaviate
 import pdfplumber
 from weaviate import Config
 import weaviate.classes as wvc
-from weaviate_init import client
+from modules.weaviate_init import client
 
 from pathlib import Path
 

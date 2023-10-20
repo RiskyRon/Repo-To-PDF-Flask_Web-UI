@@ -1,9 +1,9 @@
 #app.py
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
-from pdf_scripts.searchPDF import PDFSearch
-from pdf_scripts import vectorise
-from weaviate_init import client
+from modules.searchPDF import PDFSearch
+from modules import vectorise
+from modules.weaviate_init import client
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
