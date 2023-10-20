@@ -1,8 +1,8 @@
 import os
 import openai
-import my_weaviate
+import weaviate
 import pdfplumber
-from my_weaviate import Config
+from weaviate import Config
 import weaviate.classes as wvc
 from dotenv import load_dotenv
 
@@ -106,7 +106,7 @@ def perform_search(client, class_name, query, limit):
 if __name__ == "__main__":
     load_dotenv()   
 
-    client = my_weaviate.Client(
+    client = weaviate.Client(
         "http://localhost:8080",
         additional_config=Config(grpc_port_experimental=50051),
         additional_headers={
