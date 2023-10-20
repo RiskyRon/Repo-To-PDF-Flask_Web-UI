@@ -1,7 +1,7 @@
 #app.py
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
-from pdf_scripts.searchPDF import PDFSearch
+from pdf_scripts import semantic_search
 from pdf_scripts import vectorise
 from weaviate_init import client
 from werkzeug.utils import secure_filename
@@ -13,8 +13,6 @@ print(f'############GPT-3.5-turbo in use for development.##################')
 UPLOAD_FOLDER = 'dropzone'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-pdf_search = PDFSearch(client)
-
 
 # Function to check if the uploaded file is allowed
 def allowed_file(filename):
@@ -24,23 +22,11 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
-@app.route('/get-classes', methods=['GET'])
-def get_classes():
-    class_list = pdf_search.list_classes()
-    return jsonify(class_list=class_list)
-
-
-@app.route('/search', methods=['POST'])
-def perform_search():
-    class_choice = request.form.get('class_choice')
-    query = request.form.get('query')
-    page_limit = int(request.form.get('page_limit', 1))
-    class_name = pdf_search.get_class_choice(class_choice)
-    results = pdf_search.perform_search(class_name, query, page_limit)
-    #print(f"Request Data: {request.form}") #used for debugging
-    #print(f"Response Data: {results}")     #used for debugging
-    return jsonify(results)
-
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_query = request.form['message']
+    response = semantic_search.get_response(user_query)
+    return jsonify(response=response)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -59,3 +45,4 @@ def upload_file():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
