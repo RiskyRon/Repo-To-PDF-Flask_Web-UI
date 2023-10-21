@@ -91,6 +91,11 @@ $(document).ready(function() {
                 var title = data[i].title;
                 var confidence = (data[i].confidence_percentage).toFixed(2) + '%';
                 var content = data[i].content.replace(/\n/g, '<br>');
+                
+                // Replace triple backticks with <pre><code> and </code></pre> tags
+                var re = /```(.*?)```/gs;
+                responseText = responseText.replace(re, '<pre><code>$1</code></pre>');
+                
                 var responseHtml = '<div class="message bot-message p-2 mb-2 rounded"><strong>Chatbot:</strong> ' + responseText;
                 responseHtml += '<br><strong>Title:</strong> ' + title;
                 responseHtml += '<br><strong>Confidence:</strong> ' + confidence;
@@ -98,6 +103,8 @@ $(document).ready(function() {
                 responseHtml += '<span class="timestamp float-right">' + timeStamp + '</span></div>';
                 $('#chatbox').append(responseHtml);
             }
+            
+            
             $('#message').val('');
             $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
             // Highlight any code blocks
