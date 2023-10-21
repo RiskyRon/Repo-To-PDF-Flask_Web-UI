@@ -90,9 +90,12 @@ $(document).ready(function() {
                 var responseText = data[i].response_text;
                 var title = data[i].title;
                 var confidence = (data[i].confidence_percentage).toFixed(2) + '%';
-                var content = data[i].content.replace(/\n/g, '<br>');
                 
-                // Replace triple backticks with <pre><code> and </code></pre> tags
+                // Assuming that the content variable holds the source code and it's already formatted correctly,
+                // but just not enclosed within <pre><code> tags.
+                var content = '<pre><code>' + data[i].content + '</code></pre>';
+                
+                // Replace triple backticks with <pre><code> and </code></pre> tags for the responseText
                 var re = /```(.*?)```/gs;
                 responseText = responseText.replace(re, '<pre><code>$1</code></pre>');
                 
@@ -103,8 +106,7 @@ $(document).ready(function() {
                 responseHtml += '<span class="timestamp float-right">' + timeStamp + '</span></div>';
                 $('#chatbox').append(responseHtml);
             }
-            
-            
+
             $('#message').val('');
             $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
             // Highlight any code blocks

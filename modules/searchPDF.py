@@ -49,7 +49,15 @@ class PDFSearch:
                 messages=[
                     {
                         "role": "system",
-                        "content": (
+                        "content": ("""
+
+                        You are tasked with providing a clear, concise, and informative response to a user's query based on the information extracted from a semantic search of a PDF document. When providing code snippets, ALWAYS
+                        wrap them in a code block. This will ensure that the code is formatted correctly and is easy to read.
+                        The user's query and the relevant text extracted from the semantic search will be provided. Your response should first address the user's query directly in a natural language format, summarizing the key points from the provided text. Where possible you should provide step by step instructions for the user to follow to complete their task. 
+                        The source PDF will be provided to the user for reference. You may use any information from the PDF to help you formulate your response.
+                                               
+                        """
+
                             f"User Query: {user_query}\n"
                             f"Semantic Search Output:\nTitle: {title}\nPage Number: {page_number}\nContent: {content}\n"
                         )
